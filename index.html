@@ -3,24 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>st0pgeeking | Portfolio</title>
+  <title>metaburger | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      @apply bg-black text-gray-100 font-sans;
-    }
-  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4f46e5', // Indigo primary color
+          },
+        },
+      },
+    };
+  </script>
 </head>
-<body class="bg-black text-gray-100">
+<body class="bg-black text-gray-100 font-sans">
   <!-- Header -->
   <header class="p-6 text-center border-b border-gray-800">
-    <h1 class="text-4xl font-bold">st0pgeeking</h1>
+    <img src="images/metaburger-logo.png" alt="metaburger logo" class="h-16 mx-auto">
     <p class="text-lg text-gray-400 mt-2">Breaking systems so others don’t have to.</p>
   </header>
 
   <!-- About Section -->
   <section class="p-6 max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-2">About Me</h2>
+    <h2 class="text-2xl font-semibold mb-2 text-primary">About Me</h2>
     <p class="text-gray-300 leading-relaxed">
       I'm a cybersecurity engineer in the making, obsessed with ethical hacking, AI, and blockchain security. I break, build, and protect systems with style. Currently prepping for Security+ and exploring AI-integrated threat hunting. My mission? Dominate as a female cyber queen.
     </p>
@@ -28,22 +34,20 @@
 
   <!-- Projects Section -->
   <section class="p-6 max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-4">Projects</h2>
-
+    <h2 class="text-2xl font-semibold mb-4 text-primary">Projects</h2>
     <div class="grid gap-6">
-      <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+      <div class="bg-gray-900 p-4 rounded-lg border border-primary">
         <h3 class="text-xl font-bold">Project Name</h3>
         <p class="text-gray-400">This is a placeholder for an epic AI x Cybersecurity project.</p>
         <div class="mt-2">
-          <a href="#" class="text-indigo-400 hover:underline">GitHub Repo</a>
+          <a href="#" class="text-primary hover:underline">GitHub Repo</a>
         </div>
       </div>
-
-      <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+      <div class="bg-gray-900 p-4 rounded-lg border border-primary">
         <h3 class="text-xl font-bold">Another Cool Project</h3>
         <p class="text-gray-400">Showcasing skills in malware analysis, blockchain or threat intel.</p>
         <div class="mt-2">
-          <a href="#" class="text-indigo-400 hover:underline">GitHub Repo</a>
+          <a href="#" class="text-primary hover:underline">GitHub Repo</a>
         </div>
       </div>
     </div>
@@ -51,7 +55,7 @@
 
   <!-- Certifications -->
   <section class="p-6 max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-4">Certifications</h2>
+    <h2 class="text-2xl font-semibold mb-4 text-primary">Certifications</h2>
     <ul class="list-disc ml-6 text-gray-300">
       <li>ISC2 Certified in Cybersecurity (CC)</li>
       <li>CompTIA Security+ (in progress)</li>
@@ -60,19 +64,17 @@
 
   <!-- Contact Section -->
   <section class="p-6 max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-4">Contact</h2>
+    <h2 class="text-2xl font-semibold mb-4 text-primary">Contact</h2>
     <p class="text-gray-300">Let's connect and build something cool.</p>
     <ul class="mt-2 space-y-1">
-      <li>Email: <a href="mailto:your.email@example.com" class="text-indigo-400">your.email@example.com</a></li>
-      <li>GitHub: <a href="https://github.com/st0pgeeking" class="text-indigo-400">github.com/st0pgeeking</a></li>
-      <li>LinkedIn: <a href="https://linkedin.com/in/yourprofile" class="text-indigo-400">linkedin.com/in/yourprofile</a></li>
+      <li>Email: <a href="mailto:your.email@example.com" class="text-primary">your.email@example.com</a></li>
+      <li>GitHub: <a href="https://github.com/st0pgeeking" class="text-primary">github.com/st0pgeeking</a></li>
+      <li>LinkedIn: <a href="https://linkedin.com/in/yourprofile" class="text-primary">linkedin.com/in/yourprofile</a></li>
     </ul>
   </section>
 
   <footer class="p-4 text-center text-gray-600 text-sm border-t border-gray-800 mt-6">
-    &copy; 2025 st0pgeeking. Built with TailwindCSS.
+    © 2025 metaburger. Built with TailwindCSS.
   </footer>
 </body>
 </html>
-
-
