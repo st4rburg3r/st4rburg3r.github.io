@@ -1,80 +1,792 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>metaburger | Portfolio</title>
+  <title>st4rburger | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#4f46e5', // Indigo primary color
+            primary: '#6366f1',
+            secondary: '#8b5cf6',
+            accent: '#06b6d4',
+          },
+          fontFamily: {
+            'mono': ['ui-monospace', 'SFMono-Regular', 'Monaco', 'Consolas', 'Liberation Mono', 'Menlo', 'monospace'],
           },
         },
       },
     };
   </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+    }
+    
+    .typing-animation {
+      overflow: hidden;
+      border-right: 2px solid #6366f1;
+      animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #6366f1 }
+    }
+    
+    .glow {
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom Cursor */
+    .custom-cursor {
+      cursor: none;
+    }
+
+    .cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: #6366f1;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: all 0.1s ease;
+      z-index: 9999;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
+    }
+
+    .cursor-hover {
+      transform: translate(-50%, -50%) scale(2);
+      background: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Added for whoami section */
+    .skill-bar {
+      transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    
+    .section-card {
+      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .section-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+    
+    .fact-item {
+      transition: all 0.3s ease;
+      border-left: 2px solid transparent;
+    }
+    
+    .fact-item:hover {
+      background-color: rgba(58, 134, 255, 0.05);
+      border-left: 2px solid #6366f1;
+    }
+    
+    .tech-badge {
+      background-color: rgba(99, 102, 241, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .tech-badge:hover {
+      background-color: rgba(99, 102, 241, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .progress-container:hover .skill-bar {
+      width: 100% !important;
+    }
+  </style>
 </head>
-<body class="bg-black text-gray-100 font-sans">
-  <!-- Header -->
-  <header class="p-6 text-center border-b border-gray-800">
-    <img src="images/metaburger-logo.png" alt="metaburger logo" class="h-16 mx-auto">
-    <p class="text-lg text-gray-400 mt-2">Breaking systems so others don’t have to.</p>
-  </header>
+<body class="bg-black text-gray-100 font-mono leading-relaxed custom-cursor">
+  <!-- Custom Cursor Element -->
+  <div class="cursor" id="cursor"></div>
 
-  <!-- About Section -->
-  <section class="p-6 max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-2 text-primary">About Me</h2>
-    <p class="text-gray-300 leading-relaxed">
-      I'm a cybersecurity engineer in the making, obsessed with ethical hacking, AI, and blockchain security. I break, build, and protect systems with style. Currently prepping for Security+ and exploring AI-integrated threat hunting. My mission? Dominate as a female cyber queen.
-    </p>
-  </section>
-
-  <!-- Projects Section -->
-  <section class="p-6 max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-4 text-primary">Projects</h2>
-    <div class="grid gap-6">
-      <div class="bg-gray-900 p-4 rounded-lg border border-primary">
-        <h3 class="text-xl font-bold">Project Name</h3>
-        <p class="text-gray-400">This is a placeholder for an epic AI x Cybersecurity project.</p>
-        <div class="mt-2">
-          <a href="#" class="text-primary hover:underline">GitHub Repo</a>
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-black/80 backdrop-blur-md z-50 border-b border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="text-xl font-bold gradient-text">st4rburger</div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#about" class="hover:text-primary transition-colors">whoami</a>
+          <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+          <a href="#experience" class="hover:text-primary transition-colors">Experience</a>
+          <a href="#certifications" class="hover:text-primary transition-colors">Certifications</a>
+          <a href="#blog" class="hover:text-primary transition-colors">Blog</a>
+          <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
         </div>
       </div>
-      <div class="bg-gray-900 p-4 rounded-lg border border-primary">
-        <h3 class="text-xl font-bold">Another Cool Project</h3>
-        <p class="text-gray-400">Showcasing skills in malware analysis, blockchain or threat intel.</p>
-        <div class="mt-2">
-          <a href="#" class="text-primary hover:underline">GitHub Repo</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center px-6">
+    <div class="text-center max-w-4xl">
+      <div class="mb-8">
+        <h1 class="text-5xl md:text-7xl font-bold mb-4">
+          <span class="gradient-text">st4rburger</span>
+        </h1>
+        <div class="text-xl md:text-2xl text-gray-400 mb-6 typing-animation whitespace-nowrap">
+          Junior Pentester | SOC Analyst | Cybersecurity Student
+        </div>
+        <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+          Third-year Electronics & Computer Science student passionate about cybersecurity. 
+          Specializing in penetration testing, digital forensics, and exploring AI applications in security.
+        </p>
+      </div>
+      
+      <div class="flex justify-center space-x-6">
+        <a href="#contact" class="px-8 py-3 bg-primary hover:bg-primary/80 text-white rounded-lg transition-all glow">
+          Get In Touch
+        </a>
+        <a href="#projects" class="px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-white rounded-lg transition-all">
+          View Projects
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- whoami Section - Revised Layout -->
+  <section id="about" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center gradient-text">whoami</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column: whoami text -->
+        <div class="lg:col-span-2">
+          <div class="section-card p-8 rounded-xl">
+            <div class="space-y-6">
+              <p class="text-lg">
+                <i class="fas fa-terminal text-primary mr-2"></i>
+                I'm a third-year Electronics & Computer Science student who's been obsessed with cybersecurity for the past 2 years. 
+                What started as curiosity has turned into a passion for breaking things (ethically, of course).
+              </p>
+              <p>
+                <i class="fas fa-shield-alt text-primary mr-2"></i>
+                I've spent countless hours in penetration testing labs, analyzing malware, and diving deep into digital forensics. 
+                My experience includes advanced endpoint investigations, web application security testing, and exploring the OWASP Top 10 vulnerabilities.
+              </p>
+              <p>
+                <i class="fas fa-brain text-primary mr-2"></i>
+                When I'm not solving CTFs or hunting through logs with Splunk and ELK Stack, you'll find me researching AI applications in cybersecurity. I'm particularly interested in how machine learning can enhance threat detection and automate security analysis. 
+              </p>
+              <p>
+                <i class="fas fa-code text-primary mr-2"></i>
+                I also like researching about Web3 and blockchain technologies, and I enjoy trading as well.
+              </p>
+              <p>
+                <i class="fas fa-moon text-primary mr-2"></i>
+                I often pull all-nighters diving into security labs, breaking down complex attack vectors, and pushing myself beyond the classroom syllabus—because this isn't just a subject for me, it's my future.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Tech Stack -->
+          <div class="section-card mt-8 p-8 rounded-xl">
+            <h3 class="text-2xl font-semibold mb-6 gradient-text inline-block">
+              <i class="fas fa-layer-group mr-2"></i>Technical Skills
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">Python</span>
+                    <span class="text-primary">85%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 85%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">JavaScript</span>
+                    <span class="text-primary">55%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 55%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">Linux</span>
+                    <span class="text-primary">88%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 88%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">Penetration Testing</span>
+                    <span class="text-primary">65%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 65%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">Splunk</span>
+                    <span class="text-primary">70%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 70%"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">Web Security</span>
+                    <span class="text-primary">75%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 75%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">ELK Stack</span>
+                    <span class="text-primary">65%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 65%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">Nmap</span>
+                    <span class="text-primary">80%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 80%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">Wireshark</span>
+                    <span class="text-primary">75%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 75%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="font-medium">Burp Suite</span>
+                    <span class="text-primary">70%</span>
+                  </div>
+                  <div class="w-full bg-gray-800 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-bar" style="width: 70%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8">
+              <h4 class="text-lg font-semibold mb-4 text-gray-300">Other Technologies</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">Metasploit</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">PHP</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">Autopsy</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">Digital Forensics</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">Cloud Security</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">OWASP Top 10</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">Blockchain</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">AI Security</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column: Quick Facts -->
+        <div>
+          <div class="section-card p-8 rounded-xl sticky top-24">
+            <h3 class="text-2xl font-semibold mb-6 gradient-text inline-block">
+              <i class="fas fa-bolt text-accent mr-2"></i>Quick Facts
+            </h3>
+            
+            <div class="space-y-4">
+              <div class="fact-item p-3 rounded-lg">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full bg-primary bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fas fa-graduation-cap text-primary text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium">Education</h4>
+                    <p class="text-sm text-gray-400">3rd Year Electronics & Computer Science</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="fact-item p-3 rounded-lg">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full bg-primary bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fas fa-star text-primary text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium">Academic Performance</h4>
+                    <p class="text-sm text-gray-400">CGPA: 8.5/10.0</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="fact-item p-3 rounded-lg">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full bg-primary bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fas fa-clock text-primary text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium">Experience</h4>
+                    <p class="text-sm text-gray-400">2+ years of cybersecurity self-study</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="fact-item p-3 rounded-lg">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full bg-primary bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fas fa-flag text-primary text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium">CTF Participation</h4>
+                    <p class="text-sm text-gray-400">Active CTF participant & TryHackMe user</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="fact-item p-3 rounded-lg">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full bg-primary bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fas fa-briefcase text-primary text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium">Career Goals</h4>
+                    <p class="text-sm text-gray-400">Seeking internships in pentesting/SOC</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="fact-item p-3 rounded-lg">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full bg-primary bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fas fa-calendar-alt text-primary text-sm"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium">Graduation</h4>
+                    <p class="text-sm text-gray-400">Expected: May 2027</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-800">
+              <h4 class="text-lg font-semibold mb-4 text-gray-300">Currently Learning</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">Cloud Security</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">AI Threat Detection</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">Blockchain Security</span>
+                <span class="tech-badge px-3 py-1 rounded-full text-sm">Advanced Forensics</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Certifications -->
-  <section class="p-6 max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-4 text-primary">Certifications</h2>
-    <ul class="list-disc ml-6 text-gray-300">
-      <li>ISC2 Certified in Cybersecurity (CC)</li>
-      <li>CompTIA Security+ (in progress)</li>
-    </ul>
+  <!-- Labs Section -->
+  <section id="projects" class="py-20 px-6 bg-gray-900/20">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center gradient-text">Hands-On Lab Experience</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-primary">Penetration Testing Lab</h3>
+            <span class="text-xs bg-green-500 text-black px-2 py-1 rounded">Active</span>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Comprehensive hands-on penetration testing experience covering reconnaissance, vulnerability assessment, and exploitation techniques.
+          </p>
+          <div class="text-sm text-gray-300 mb-4 space-y-1">
+            <p>• Network reconnaissance with Nmap and Gobuster</p>
+            <p>• Vulnerability assessment and exploitation</p>
+            <p>• Privilege escalation techniques</p>
+            <p>• Metasploit framework usage</p>
+            <p>• Post-exploitation and maintaining access</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Nmap</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Metasploit</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Burp Suite</span>
+          </div>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-primary">SOC Analysis Lab</h3>
+            <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded">Completed</span>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Security Operations Center analyst training focused on threat detection, incident response, and security event analysis.
+          </p>
+          <div class="text-sm text-gray-300 mb-4 space-y-1">
+            <p>• SIEM tools and log analysis</p>
+            <p>• Threat intelligence gathering</p>
+            <p>• Incident response procedures</p>
+            <p>• Network security monitoring</p>
+            <p>• Malware analysis and detection</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Splunk</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Wireshark</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">YARA</span>
+          </div>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-primary">Digital Forensics Lab</h3>
+            <span class="text-xs bg-purple-500 text-white px-2 py-1 rounded">Advanced</span>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Advanced digital forensics training covering file system analysis, memory forensics, and evidence collection techniques.
+          </p>
+          <div class="text-sm text-gray-300 mb-4 space-y-1">
+            <p>• File system analysis (NTFS, FAT32, Ext4)</p>
+            <p>• Memory dump analysis with Volatility</p>
+            <p>• File carving and data recovery</p>
+            <p>• Timeline analysis and artifact correlation</p>
+            <p>• Mobile device forensics</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Volatility</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Autopsy</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">FTK Imager</span>
+          </div>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-primary">Endpoint Investigation Lab</h3>
+            <span class="text-xs bg-orange-500 text-white px-2 py-1 rounded">In Progress</span>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Comprehensive endpoint security monitoring and investigation techniques for detecting and analyzing threats on endpoints.
+          </p>
+          <div class="text-sm text-gray-300 mb-4 space-y-1">
+            <p>• Sysinternals tools (Process Explorer, TCPView)</p>
+            <p>• Windows event log analysis</p>
+            <p>• Registry forensics and analysis</p>
+            <p>• Process monitoring and analysis</p>
+            <p>• Network connection tracking</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Sysinternals</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">PowerShell</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Sysmon</span>
+          </div>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-primary">Red Teaming Lab</h3>
+            <span class="text-xs bg-red-500 text-white px-2 py-1 rounded">Advanced</span>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Advanced adversarial simulation training focused on emulating real-world attack scenarios and techniques.
+          </p>
+          <div class="text-sm text-gray-300 mb-4 space-y-1">
+            <p>• Adversary emulation and TTPs</p>
+            <p>• Evading logging and monitoring systems</p>
+            <p>• Command and control (C2) operations</p>
+            <p>• Social engineering techniques</p>
+            <p>• OPSEC and stealth operations</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Cobalt Strike</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Empire</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Covenant</span>
+          </div>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 card-hover">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-primary">Web App Security Lab</h3>
+            <span class="text-xs bg-cyan-500 text-black px-2 py-1 rounded">Completed</span>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Comprehensive web application security testing covering OWASP Top 10 vulnerabilities and advanced attack techniques.
+          </p>
+          <div class="text-sm text-gray-300 mb-4 space-y-1">
+            <p>• OWASP Top 10 vulnerability assessment</p>
+            <p>• SQL injection and NoSQL injection</p>
+            <p>• Cross-site scripting (XSS) variants</p>
+            <p>• Authentication and session management</p>
+            <p>• API security testing</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Burp Suite</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">OWASP ZAP</span>
+            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">SQLMap</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="p-6 max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-4 text-primary">Contact</h2>
-    <p class="text-gray-300">Let's connect and build something cool.</p>
-    <ul class="mt-2 space-y-1">
-      <li>Email: <a href="mailto:your.email@example.com" class="text-primary">your.email@example.com</a></li>
-      <li>GitHub: <a href="https://github.com/st0pgeeking" class="text-primary">github.com/st0pgeeking</a></li>
-      <li>LinkedIn: <a href="https://linkedin.com/in/yourprofile" class="text-primary">linkedin.com/in/yourprofile</a></li>
-    </ul>
+  <!-- Experience Section -->
+  <section id="experience" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center gradient-text">Experience & Learning</h2>
+      <div class="space-y-8">
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-primary">Self-Directed Cybersecurity Learning</h3>
+              <p class="text-gray-400">Independent Study & Lab Practice</p>
+            </div>
+            <span class="text-sm text-gray-500">2022 - Present</span>
+          </div>
+          <div class="text-gray-300 space-y-2">
+            <p>• Completed 60+ penetration testing and SOC analysis labs</p>
+            <p>• Developed skills in threat hunting using Splunk, ELK Stack, and Logstash</p>
+            <p>• Active participant in CTFs and cybersecurity challenges</p>
+            <p>• Developed skills in web application security, network analysis, and malware investigation</p>
+          </div>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-primary">Bachelor of Technology Student</h3>
+              <p class="text-gray-400">Electronics & Computer Science Engineering</p>
+            </div>
+            <span class="text-sm text-gray-500">2024 - 2027</span>
+          </div>
+          <div class="text-gray-300 space-y-2">
+            <p>• Currently maintaining 8.5/10.0 CGPA while pursuing cybersecurity specialization</p>
+            <p>• Relevant coursework: Artificial Intelligence, Computer Networks</p>
+            <p>• Programming experience: Python, C++, Bash, PHP, JavaScript</p>
+            <p>• Seeking internship opportunities in penetration testing and SOC analysis</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <footer class="p-4 text-center text-gray-600 text-sm border-t border-gray-800 mt-6">
-    © 2025 metaburger. Built with TailwindCSS.
-  </footer>
+  <!-- Certifications Section -->
+  <section id="certifications" class="py-20 px-6 bg-gray-900/20">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center gradient-text">Certifications & Achievements</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">JPT</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">Junior Penetration Tester</h3>
+          <p class="text-gray-400 text-xs">Jul 2025</p>
+          <p class="text-gray-500 text-xs mt-1">TryHackMe Certification</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">SOC</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">SOC Level 1 Path</h3>
+          <p class="text-gray-400 text-xs">Jun 2025</p>
+          <p class="text-gray-500 text-xs mt-1">TryHackMe Certification</p>
+        </div>
+        
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">SOC2</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">SOC Level 2 Path</h3>
+          <p class="text-gray-400 text-xs">Jul 2025</p>
+          <p class="text-gray-500 text-xs mt-1">TryHackMe Certification</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">Web</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">Web Application Security</h3>
+          <p class="text-gray-400 text-xs">Jun 2025</p>
+          <p class="text-gray-500 text-xs mt-1">TryHackMe Learning Path</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">ML</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">MLSecOps Foundation</h3>
+          <p class="text-gray-400 text-xs">March 2025</p>
+          <p class="text-gray-500 text-xs mt-1">By: PROTECT AI</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">MC</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">Mastercard Cybersecurity Simulation</h3>
+          <p class="text-gray-400 text-xs">Sept 2024</p>
+          <p class="text-gray-500 text-xs mt-1">ID: PbPoepNL7Z3dZyjxF</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">Linux</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">Linux File System Analysis</h3>
+          <p class="text-gray-400 text-xs">Jun 2025</p>
+          <p class="text-gray-500 text-xs mt-1">Cybrary Certification</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">N</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">Network Security Fundamentals</h3>
+          <p class="text-gray-400 text-xs">Jun 2025</p>
+          <p class="text-gray-500 text-xs mt-1">Cybrary Certification</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-center card-hover">
+          <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-lg font-bold">WAP</span>
+          </div>
+          <h3 class="text-base font-semibold mb-1">Web App Penetration Testing</h3>
+          <p class="text-gray-400 text-xs">Jul 2025</p>
+          <p class="text-gray-500 text-xs mt-1">TryHackMe Certification</p>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 max-w-2xl mx-auto">
+          <h3 class="text-lg font-semibold mb-4 text-primary">Learning Platforms</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div class="text-center">
+              <div class="text-2xl mb-2">🎯</div>
+              <p class="text-gray-400">TryHackMe</p>
+              <p class="text-xs text-gray-500">Active Learner</p>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl mb-2">🔐</div>
+              <p class="text-gray-400">Cybrary</p>
+              <p class="text-xs text-gray-500">Certified</p>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl mb-2">💼</div>
+              <p class="text-gray-400">Forage</p>
+              <p class="text-xs text-gray-500">Job Simulations</p>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl mb-2">🏆</div>
+              <p class="text-gray-400">CTF Player</p>
+              <p class="text-xs text-gray-500">Regular Participant</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 px-6 bg-gray-900/20">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl font-bold mb-8 gradient-text">Let's Connect</h2>
+    <p class="text-xl text-gray-300 mb-12">
+      Looking for internship opportunities or want to collaborate on cybersecurity projects? Let's build something amazing together.
+    </p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <a href="mailto:trupti.v19@icloud.com" class="flex flex-col justify-between bg-gray-900 p-6 rounded-lg border border-gray-800 hover:border-primary transition-colors card-hover">
+        <div class="text-3xl mb-4">📧</div>
+        <h3 class="text-lg font-semibold mb-2">Email</h3>
+        <p class="text-gray-400">trupti.v19@icloud.com</p>
+      </a>
+
+      <a href="https://github.com/st4rburg3r" class="flex flex-col justify-between bg-gray-900 p-6 rounded-lg border border-gray-800 hover:border-primary transition-colors card-hover">
+        <div class="text-3xl mb-4">🐙</div>
+        <h3 class="text-lg font-semibold mb-2">GitHub</h3>
+        <p class="text-gray-400">@st4rburg3r</p>
+      </a>
+
+      <a href="https://www.linkedin.com/in/trupti-vibhute-182835274/" class="flex flex-col justify-between bg-gray-900 p-6 rounded-lg border border-gray-800 hover:border-primary transition-colors card-hover">
+        <div class="text-3xl mb-4">💼</div>
+        <h3 class="text-lg font-semibold mb-2">LinkedIn</h3>
+        <p class="text-gray-400">Connect with me</p>
+      </a>
+
+      <a href="https://medium.com/@trupti.v19625" class="flex flex-col justify-between bg-gray-900 p-6 rounded-lg border border-gray-800 hover:border-primary transition-colors card-hover">
+        <div class="text-3xl mb-4">📝</div>
+        <h3 class="text-lg font-semibold mb-2">Medium</h3>
+        <p class="text-gray-400">Read my articles</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+  <script>
+    // Custom Cursor JavaScript
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+    });
+
+    // Add hover effect on interactive elements
+    const hoverElements = document.querySelectorAll('a, button, .card-hover');
+    hoverElements.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('cursor-hover');
+      });
+    });
+  </script>
 </body>
 </html>
